@@ -1,6 +1,6 @@
 {
-  "name": "config",
-  "version": "1.0.0",
+  "name": "@steveho/ts-config",
+  "version": "1.0.1",
   "description": "load application config, inspired from Laravel Config",
   "main": "./dist/index.js",
   "files": [
@@ -15,8 +15,13 @@
     "nodejs",
     "config"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevehogo/node-config.git"
+  },
   "author": "steve.ho",
-  "license": "ISC",
+  "license": "MIT",
+  "homepage": "https://github.com/stevehogo/node-config#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
