@@ -37,28 +37,24 @@ export class FileLoader {
         // First we'll get the main configuration file for the groups. Once we have
         // that we can check for any environment specific files, which will get
         // merged on top of the main arrays to make the environments cascade.
-        let file = path.join(_path, group + ".json");
-        if (fs.existsSync(file)) {
-            items = require(file);
-        }
-        file = path.join(_path, group + ".js");
-        if (fs.existsSync(file)) {
-            items = require(file);
-            if(_.isset(items['default'])){
-                items = items['default'];
+        const allows=['.js', '.json'];
+        let file;
+        for(const ext in allows){
+            file = path.join(_path, group + allows[ext]);
+            if (fs.existsSync(file)) {
+                items = require(file);
+                break;
             }
         }
         // Finally we're ready to check for the environment specific configuration
         // file which will be merged on top of the main arrays so that they get
         // precedence over them if we are currently in an environments setup.
-        file = path.join(_path, environment, group + ".json");
-
-        if (fs.existsSync(file)) {
-            items = this.__mergeEnvironment(items, file);
-        }
-        file = path.join(_path, environment, group + ".js");
-        if (fs.existsSync(file)) {
-            items = this.__mergeEnvironment(items, file);
+        for(const ext in allows){
+            file = path.join(_path, environment, group + allows[ext]);
+            if (fs.existsSync(file)) {
+                items = this.__mergeEnvironment(items, file);
+                break;
+            }
         }
         return items;
     }
